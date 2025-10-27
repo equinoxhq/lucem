@@ -1,0 +1,5 @@
+<gresources>
+  <gresource prefix="/xyz/xtrayambak/lucem">
+  	<file>assets/icons/lucem.svg</file>
+  </gresource>
+</gresources>
