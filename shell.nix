@@ -4,6 +4,10 @@ mkShell {
   nativeBuildInputs = [
     pkg-config
     gtk4
+    simdutf
+    gmp
+    boehmgc
+    icu76
     libadwaita.dev
   ];
 
@@ -11,5 +15,10 @@ mkShell {
     gtk4
     libadwaita
     libadwaita.dev
+    simdutf
+    gmp.dev
+    icu76.dev
+    pcre.dev
+    boehmgc.dev
   ];
 }

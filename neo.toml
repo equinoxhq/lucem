@@ -3,7 +3,7 @@ name = "lucem"
 version = "0.1.0"
 license = "GPL3"
 kind = "Binary"
-backend = "C"
+backend = "Cpp"
 binaries = ["lucem"]
 
 [toolchain]
@@ -12,3 +12,4 @@ version = "2.2.0"
 [dependencies]
 owlkettle = ">= 3.0.0"
 chronicles = ">= 0.12.2"
+bali = ">= 0.8.2"

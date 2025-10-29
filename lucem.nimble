@@ -13,3 +13,5 @@ requires "nim >= 2.2.0"
 requires "owlkettle >= 3.0.0"
 requires "chronicles >= 0.11.0"
 
+
+requires "bali >= 0.8.1"
