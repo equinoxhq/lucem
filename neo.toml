@@ -3,13 +3,16 @@ name = "lucem"
 version = "0.1.0"
 license = "GPL3"
 kind = "Binary"
-backend = "Cpp"
+backend = "C"
 binaries = ["lucem"]
 
 [toolchain]
 version = "2.2.0"
 
 [dependencies]
+jsony = ">= 1.1.5"
+url = ">= 0.0.0"
+results = ">= 0.5.1"
 owlkettle = ">= 3.0.0"
+curly = ">= 1.1.1"
 chronicles = ">= 0.12.2"
-bali = ">= 0.8.2"
