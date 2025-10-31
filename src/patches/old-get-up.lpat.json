@@ -1,0 +1,12 @@
+{
+	"metadata": {
+		"name": "Bring back the old get-up sound",
+		"author": "The Equinox Team"
+	},
+	"inputs": {
+		"https://github.com/bloxstraplabs/bloxstrap/raw/main/Bloxstrap/Resources/Mods/Sounds/OldGetUp.mp3": "main.mp3"
+	},
+	"outputs": {
+		"content/sounds/action_get_up.mp3": "main.mp3"
+	}
+}

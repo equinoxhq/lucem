@@ -3,14 +3,15 @@
 ## Copyright (C) 2025 Trayambak Rai (xtrayambak at disroot dot org)
 import std/[os, options, base64]
 import pkg/chronicles
+import meta
 
 logScope:
   topics = "resource caching"
 
 func asCacheEntry*(url: string): string {.inline.} =
-  encode(path, safe = true)
+  encode(url, safe = true)
 
-proc isCached*(cacheDir: string, url: string) {.inline.} =
+proc isCached*(cacheDir: string, url: string): bool {.inline.} =
   fileExists(cacheDir / asCacheEntry(url))
 
 proc cache*(cacheDir: string, url: string, content: string) {.inline.} =
@@ -40,3 +41,6 @@ proc ensureCacheDirExists*(dir: string) =
   if not dirExists(dir):
     info "Initializing cache directory", dir = dir
     createDir(dir)
+
+proc getLucemCacheDir*(): string =
+  getCacheDir() / meta.AppId

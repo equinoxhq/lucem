@@ -11,7 +11,9 @@ bin = @["lucem"]
 
 requires "nim >= 2.2.0"
 requires "owlkettle >= 3.0.0"
-requires "chronicles >= 0.11.0"
+requires "jsony >= 1.1.5"
 
 
-requires "bali >= 0.8.1"
+requires "curly >= 1.1.1"
+requires "results >= 0.5.1"
+requires "url >= 0.1.3"
