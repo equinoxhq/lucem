@@ -16,7 +16,7 @@ proc openAboutMenu*(app: Viewable) =
 Copyright (C) 2025 xTrayambak and the EquinoxHQ Team
       """
         license = meta.License
-        licenseType = LicenseMIT_X11
+        licenseType = LicenseGPL_3_0
         applicationIcon = "lucem"
         developers = @["Trayambak (xTrayambak)"]
         designers = @["Adrien (AshtakaOOf)"]
