@@ -11,13 +11,13 @@ proc openAboutMenu*(app: Viewable) =
         supportUrl = "https://discord.gg/Z5m3n9fjcU"
         issueUrl = "https://github.com/equinoxhq/lucem/issues"
         website = "https://equinoxhq.github.io"
+        applicationIcon = "lucem"
         copyright =
           """
 Copyright (C) 2025 xTrayambak and the EquinoxHQ Team
       """
         license = meta.License
-        licenseType = LicenseMIT_X11
-        applicationIcon = "lucem"
+        licenseType = LicenseGPL_3_0
         developers = @["Trayambak (xTrayambak)"]
         designers = @["Adrien (AshtakaOOf)"]
         artists = @[]

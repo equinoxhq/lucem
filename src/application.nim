@@ -1,11 +1,11 @@
 ## Application code
 ##
 ## Copyright (C) 2025 Trayambak Rai (xtrayambak at disroot dot org)
+## Copyright (C) 2025 AshtakaOof
 import std/[logging, os, options, posix, json, strutils]
 import pkg/owlkettle, pkg/owlkettle/adw
 import pkg/[chronicles, shakar]
-import ./bindings/libadwaita,
-       ./adw/about
+import bindings/libadwaita, adw/about, config, resource_loader
 
 logScope:
   topics = "application"
@@ -23,8 +23,8 @@ viewable SettingsMenu:
   selected:
     int
 
-  x:
-    pointer
+  config:
+    Config
 
 proc setState(app: SettingsMenuState, state: SettingsState) =
   if app.state == state:
@@ -99,8 +99,7 @@ method view(app: SettingsMenuState): Widget =
           style = [ButtonFlat]
 
           proc clicked() =
-            info "lucem: saving configuration changes"
-            app.config[].save()
+            info "Saving configuration changes"
 
       OverlaySplitView:
         collapsed = not app.collapsed
@@ -178,8 +177,9 @@ method view(app: SettingsMenuState): Widget =
                   subtitle = "Only modify if you have issues with Vulkan."
                   tooltip = "Default is Vulkan"
 
-                  items = @["Vulkan", "OpenGL"]
-                  #[selected = app.selected
+                  items =
+                    @["Vulkan", "OpenGL"]
+                      #[selected = app.selected
 
                   proc select(index: int) =
                     app.selected = index
@@ -219,7 +219,7 @@ method view(app: SettingsMenuState): Widget =
                 description =
                   "<b>Do not modify these settings if you aren't aware of what they do</b>."
 
-                ActionRow:
+                #[ ActionRow:
                   title = "GPU Memory Allocator"
                   subtitle =
                     "This decides which VRAM allocator the Android runtime will use."
@@ -229,30 +229,18 @@ method view(app: SettingsMenuState): Widget =
                     text = app.config.allocator
 
                     proc changed(text: string) =
-                      app.config.allocator = text
-
+                      app.config.allocator = text ]#
         else:
           discard
 
-proc runSettingsMenu*() =
-  adw.brew(
-    gui(
-      SettingsMenu(
-        collapsed = true,
-        selected =
-          (
-            case config.renderer.toRenderingBackend() # FIXME: terrible, ugly and awful hack that'll break if you reorder shit in the menu :^)
-            of RenderingBackend.Vulkan: 0
-            of RenderingBackend.OpenGL: 1
-          )
-      )
-    )
-  )
+proc runLucemApp*() =
+  let events: array[1, ApplicationEvent] = [
+    proc(_: WidgetState) {.closure.} =
+      loadAppAssets()
+  ]
+
+  adw.brew(gui(SettingsMenu(collapsed = true)), startupEvents = events)
 
   #[info "lucem: saving configuration changes"
   config.save()
   info "lucem: done!"]#
-
-#[proc runLucemApp*() =
-  info "Starting application"
-  adw.brew(App())]#
