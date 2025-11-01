@@ -7,45 +7,34 @@ import pkg/[chronicles, shakar]
 import ./bindings/libadwaita,
        ./adw/about
 
-#[logScope:
+logScope:
   topics = "application"
 
-viewable App:
-  x:
-    pointer
-
-method view(app: AppState): Widget =
-  result = gui:
-    Window:
-      title = "Starting Lucem"
-      defaultSize = (600, 400)
-      AdwSpinner()
-
-      HeaderBar {.addTitlebar.}:
-        style = [HeaderBarFlat]]#
-
-type LucemAppState* {.pure.} = enum
+type SettingsState* {.pure.} = enum
   General
   Renderer
 
-viewable App:
+viewable SettingsMenu:
   collapsed:
     bool = true
 
   state:
-    LucemAppState
+    SettingsState
   selected:
     int
 
-proc setState(app: AppState, state: LucemAppState) =
+  x:
+    pointer
+
+proc setState(app: SettingsMenuState, state: SettingsState) =
   if app.state == state:
     return
 
-  debug "lucem app: state=" & $state
+  debug "settings: state=" & $state
   app.collapsed = true
   app.state = state
 
-method view(app: AppState): Widget =
+method view(app: SettingsMenuState): Widget =
   result = gui:
     Window:
       title = "Lucem"
@@ -134,7 +123,7 @@ method view(app: AppState): Widget =
               useUnderline = false
 
             proc clicked() =
-              app.setState(LucemState.General)
+              app.setState(SettingsState.General)
 
           Button {.expand: false.}:
             ButtonContent:
@@ -144,10 +133,10 @@ method view(app: AppState): Widget =
               useUnderline = false
 
             proc clicked() =
-              app.setState(LucemState.Renderer)
+              app.setState(SettingsState.Renderer)
 
         case app.state
-        of LucemState.General:
+        of SettingsState.General:
           Clamp:
             maximumSize = 500
             margin = 12
@@ -171,7 +160,7 @@ method view(app: AppState): Widget =
                     proc changed(state: bool) =
                       app.config.discordRpc = state
 
-        of LucemState.Renderer:
+        of SettingsState.Renderer:
           Clamp:
             maximumSize = 500
             margin = 12
@@ -245,10 +234,10 @@ method view(app: AppState): Widget =
         else:
           discard
 
-proc runLucemApp*() =
+proc runSettingsMenu*() =
   adw.brew(
     gui(
-      LucemApp(
+      SettingsMenu(
         collapsed = true,
         selected =
           (
