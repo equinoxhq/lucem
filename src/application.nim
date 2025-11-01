@@ -4,7 +4,8 @@
 import std/[logging, os, options, posix, json, strutils]
 import pkg/owlkettle, pkg/owlkettle/adw
 import pkg/[chronicles, shakar]
-import ./bindings/libadwaita
+import ./bindings/libadwaita,
+       ./adw/about
 
 #[logScope:
   topics = "application"
@@ -23,7 +24,7 @@ method view(app: AppState): Widget =
       HeaderBar {.addTitlebar.}:
         style = [HeaderBarFlat]]#
 
-type LucemState* {.pure.} = enum
+type LucemAppState* {.pure.} = enum
   General
   Renderer
 
@@ -32,11 +33,11 @@ viewable App:
     bool = true
 
   state:
-    LucemState
+    LucemAppState
   selected:
     int
 
-proc setState(app: LucemAppState, state: LucemState) =
+proc setState(app: AppState, state: LucemAppState) =
   if app.state == state:
     return
 
@@ -44,7 +45,7 @@ proc setState(app: LucemAppState, state: LucemState) =
   app.collapsed = true
   app.state = state
 
-method view(app: LucemAppState): Widget =
+method view(app: AppState): Widget =
   result = gui:
     Window:
       title = "Lucem"
@@ -133,7 +134,7 @@ method view(app: LucemAppState): Widget =
               useUnderline = false
 
             proc clicked() =
-              app.setState(SettingsState.General)
+              app.setState(LucemState.General)
 
           Button {.expand: false.}:
             ButtonContent:
@@ -143,10 +144,10 @@ method view(app: LucemAppState): Widget =
               useUnderline = false
 
             proc clicked() =
-              app.setState(SettingsState.Renderer)
+              app.setState(LucemState.Renderer)
 
         case app.state
-        of SettingsState.General:
+        of LucemState.General:
           Clamp:
             maximumSize = 500
             margin = 12
@@ -170,7 +171,7 @@ method view(app: LucemAppState): Widget =
                     proc changed(state: bool) =
                       app.config.discordRpc = state
 
-        of SettingsState.Renderer:
+        of LucemState.Renderer:
           Clamp:
             maximumSize = 500
             margin = 12
@@ -245,11 +246,9 @@ method view(app: LucemAppState): Widget =
           discard
 
 proc runLucemApp*() =
-  var config = loadAppConfig($getpwuid(getuid()).pwName)
   adw.brew(
     gui(
       LucemApp(
-        config = config.addr,
         collapsed = true,
         selected =
           (
@@ -265,6 +264,6 @@ proc runLucemApp*() =
   config.save()
   info "lucem: done!"]#
 
-proc runLucemApp*() =
+#[proc runLucemApp*() =
   info "Starting application"
-  adw.brew(App())
+  adw.brew(App())]#
