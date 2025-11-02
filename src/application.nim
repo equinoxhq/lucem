@@ -2,13 +2,16 @@
 ##
 ## Copyright (C) 2025 Trayambak Rai (xtrayambak at disroot dot org)
 ## Copyright (C) 2025 AshtakaOof
-import std/[logging, os, options, posix, json, strutils]
-import pkg/owlkettle, pkg/owlkettle/adw
+import std/[logging, os, options, posix, json, strutils, sequtils, sugar]
+import pkg/owlkettle, pkg/owlkettle/[playground, adw]
 import pkg/[chronicles, shakar]
 import bindings/libadwaita, adw/about, config, resource_loader
 
 logScope:
   topics = "application"
+
+# I'm thinking it'd be cleaner idk
+const TITLE = "Lucem"
 
 type SettingsState* {.pure.} = enum
   General
@@ -37,12 +40,12 @@ proc setState(app: SettingsMenuState, state: SettingsState) =
 method view(app: SettingsMenuState): Widget =
   result = gui:
     Window:
-      title = "Lucem"
+      title = TITLE
       defaultSize = (600, 400)
 
       AdwHeaderBar {.addTitlebar.}:
         showTitle = true
-        style = HeaderBarFlat
+        #style = HeaderBarFlat
 
         Button {.addLeft.}:
           icon = "sidebar-show-symbolic"
@@ -54,7 +57,7 @@ method view(app: SettingsMenuState): Widget =
 
         # Unless we add more options in here I'm commenting it out
         # Also added a save and quit if you ever want to use it
-        #[ MenuButton {.addRight.}:
+        MenuButton {.addRight.}:
           icon = "open-menu-symbolic"
           style = [ButtonFlat]
 
@@ -69,14 +72,20 @@ method view(app: SettingsMenuState): Widget =
               spacing = 3
 
               ModelButton:
+                text = "Save changes"
+
+                proc clicked() =
+                  info "Saving configuration changes"
+
+              ModelButton:
                 text = "About Lucem"
 
                 proc clicked() =
                   openAboutMenu(app)
 
-              Separator()
+              #Separator()
 
-              ModelButton:
+              #[ModelButton:
                 text = "Save and Quit"
 
                 proc clicked() =
@@ -86,20 +95,28 @@ method view(app: SettingsMenuState): Widget =
                   quit()]#
 
         Button {.addRight.}:
+          icon = "media-playback-start-symbolic"
+          tooltip = "Start Sober"
+          style = [ButtonSuggested]
+
+          proc clicked() =
+            info "Should be launching Sober"
+
+        #[Button {.addRight.}:
           icon = "help-about-symbolic"
           tooltip = "Open the About Window"
           style = [ButtonFlat]
 
           proc clicked() =
-            openAboutMenu(app)
+            openAboutMenu(app)]#
 
-        Button {.addRight.}:
+        #[Button {.addRight.}:
           icon = "media-floppy-symbolic"
           tooltip = "Save changes"
           style = [ButtonFlat]
 
           proc clicked() =
-            info "Saving configuration changes"
+            info "Saving configuration changes"]#
 
       OverlaySplitView:
         collapsed = not app.collapsed
