@@ -7,18 +7,26 @@ on: push
 jobs:
   build:
     runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-48
+      options: --privileged
 
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
       # ⚠️ This setups the latest stable Nim version
       - name: Install Nim
         uses: iffy/install-nim@v5
-      - name: Install dependencies
-        run: nimble install -y
+
+      #- name: Install glib
+      #  run: sudo apt install libglib2.0-dev --assume-yes
       - name: Compile resources
         run: ./scripts/compile-resources.sh
+
+      - name: Install dependencies
+        run: nimble install -y
       - name: Build with nimble
         run: nimble build --define:release --out:lucem
 
