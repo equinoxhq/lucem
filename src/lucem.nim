@@ -11,10 +11,8 @@ const content = staticRead "patches/old-get-up.lpat.json"
 proc main() {.inline.} =
   info "Lucem is now starting up", version = meta.Version
   var loader: PatchLoader
-  let patch = loader.loadPatch("thing.lpat.js", content)
+  loader.loadPatch("old-get-up.lpat.js", content, official = true)
   loader.execute()
-
-  revertPatch(&patch, getSoberDir() / "data" / "sober" / "asset_overlay")
 
   runLucemApp()
 

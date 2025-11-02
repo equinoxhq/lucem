@@ -12,6 +12,7 @@ type
   PatchMetadata = object
     name*: string
     author*: string
+    official*: bool
 
   PatchFetched = Table[string, string]
   PatchMutations = Table[string, string]
@@ -33,15 +34,16 @@ type
     http*: Curly
 
 proc loadPatch*(
-    loader: var PatchLoader, name: string, source: string
+    loader: var PatchLoader, name: string, source: string, official: bool = false
 ): Option[Patch] {.discardable.} =
-  info "Loading patch", name = name
+  info "Loading patch", name = name, official = official
 
   try:
-    let patch = fromJson(source, Patch)
+    var patch = fromJson(source, Patch)
+    patch.metadata.official = official
     loader.patches.incl(patch)
 
-    return some(patch)
+    return some(ensureMove(patch))
   except jsony.JsonError as exc:
     error "Cannot load patch - cannot parse file! It will not be available.",
       name = name, err = exc.msg

@@ -12,7 +12,7 @@ logScope:
 
 type SettingsState* {.pure.} = enum
   General
-  Renderer
+  Patches
 
 viewable SettingsMenu:
   collapsed:
@@ -126,13 +126,13 @@ method view(app: SettingsMenuState): Widget =
 
           Button {.expand: false.}:
             ButtonContent:
-              label = "Renderer Settings"
+              label = "Patches"
               iconName = "video-display-symbolic"
               style = [ButtonFlat]
               useUnderline = false
 
             proc clicked() =
-              app.setState(SettingsState.Renderer)
+              app.setState(SettingsState.Patches)
 
         case app.state
         of SettingsState.General:
@@ -158,14 +158,6 @@ method view(app: SettingsMenuState): Widget =
 
                     proc changed(state: bool) =
                       app.config.discordRpc = state
-
-        of SettingsState.Renderer:
-          Clamp:
-            maximumSize = 500
-            margin = 12
-            Box:
-              orient = OrientY
-              spacing = 12
 
               PreferencesGroup {.expand: false.}:
                 title = "Rendering Parameters"
@@ -218,18 +210,6 @@ method view(app: SettingsMenuState): Widget =
                 title = "Advanced Parameters"
                 description =
                   "<b>Do not modify these settings if you aren't aware of what they do</b>."
-
-                #[ ActionRow:
-                  title = "GPU Memory Allocator"
-                  subtitle =
-                    "This decides which VRAM allocator the Android runtime will use."
-                  tooltip = "Default is minigbm_gbm_mesa"
-
-                  Entry {.addSuffix.}:
-                    text = app.config.allocator
-
-                    proc changed(text: string) =
-                      app.config.allocator = text ]#
         else:
           discard
 
