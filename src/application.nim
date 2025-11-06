@@ -135,7 +135,7 @@ method view(app: SettingsMenuState): Widget =
             ButtonContent:
               label = "General Settings"
               iconName = "user-home-symbolic"
-              style = [ButtonFlat]
+              style = [StyleClass("sidebar-button")]
               useUnderline = false
 
             proc clicked() =
@@ -236,7 +236,7 @@ proc runLucemApp*() =
       loadAppAssets()
   ]
 
-  adw.brew(gui(SettingsMenu(collapsed = true)), startupEvents = events)
+  adw.brew(gui(SettingsMenu(collapsed = true)), startupEvents = events, stylesheets=[loadStylesheet("./src/adw/style.css")])
 
   #[info "lucem: saving configuration changes"
   config.save()
