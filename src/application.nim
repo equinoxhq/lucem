@@ -236,10 +236,12 @@ proc runLucemApp*() =
       loadAppAssets()
   ]
 
+  var config = loadConfig()
+
   adw.brew(
-    gui(SettingsMenu(collapsed = true)), startupEvents = events, stylesheets = []
+    gui(SettingsMenu(collapsed = true, config = config)),
+    startupEvents = events,
+    stylesheets = [],
   )
 
-  #[info "lucem: saving configuration changes"
   config.save()
-  info "lucem: done!"]#
