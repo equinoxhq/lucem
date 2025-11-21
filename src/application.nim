@@ -237,9 +237,7 @@ proc runLucemApp*() =
   ]
 
   adw.brew(
-    gui(SettingsMenu(collapsed = true)),
-    startupEvents = events,
-    stylesheets = [loadStylesheet("./src/adw/style.css")],
+    gui(SettingsMenu(collapsed = true)), startupEvents = events, stylesheets = []
   )
 
   #[info "lucem: saving configuration changes"
