@@ -1,5 +1,12 @@
 <gresources>
-  <gresource prefix="/xyz/xtrayambak/lucem">
-  	<file>assets/icons/lucem.svg</file>
+  <gresource prefix="/equinoxhq/lucem/resources">
+  	<file
+            compressed="true"
+            preprocess="xml-stripblanks"
+        >assets/icons/lucem.svg</file>
+    <file
+            compressed="true"
+            preprocess="xml-stripblanks"
+        >assets/icons/shopping-cart-symbolic.svg</file>
   </gresource>
 </gresources>

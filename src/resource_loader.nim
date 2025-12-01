@@ -16,5 +16,5 @@ proc loadAppAssets*() =
   g_resources_register(resources_get_resource())
   gtk_icon_theme_add_resource_path(
     gtk_icon_theme_get_for_display(gdk_display_get_default()),
-    "/xyz/xtrayambak/lucem/assets/icons",
+    "/equinoxhq/lucem/resources/assets/icons",
   )

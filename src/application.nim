@@ -5,7 +5,7 @@
 import std/[logging, os, options, posix, json, strutils, sequtils, sugar]
 import pkg/owlkettle, pkg/owlkettle/[playground, adw]
 import pkg/[chronicles, shakar]
-import bindings/libadwaita, adw/about, config, resource_loader
+import bindings/libadwaita, adw/about, config, resource_loader, store
 
 logScope:
   topics = "application"
@@ -54,6 +54,13 @@ method view(app: SettingsMenuState): Widget =
           proc clicked() =
             app.collapsed = not app.collapsed
             debug "settings: collapsed: " & $app.collapsed
+
+        Button {.addLeft.}:
+          icon = "shopping-cart-symbolic" # use tag-symbolic if i can't find a way to theme it to dark mode
+          style = [ButtonFlat]
+
+          proc clicked() =
+            openPatchStore(app)
 
         # Unless we add more options in here I'm commenting it out
         # Also added a save and quit if you ever want to use it
