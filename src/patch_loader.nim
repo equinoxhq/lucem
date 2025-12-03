@@ -1,7 +1,7 @@
 ## Patch loader implementation
 ##
 ## Copyright (C) 2025 Trayambak Rai (xtrayambak at disroot dot org)
-import std/[os, hashes, strutils, tables]
+import std/[os, options, hashes, strutils, sets, tables]
 import pkg/[chronicles, curly, results, shakar, url, jsony]
 import meta, resource_caching, sober_dir
 
@@ -12,6 +12,7 @@ type
   PatchMetadata = object
     name*: string
     author*: string
+    official*: bool
 
   PatchFetched = Table[string, string]
   PatchMutations = Table[string, string]
@@ -22,7 +23,7 @@ type
     outputs*: PatchMutations
 
   PatchLoader* = object
-    patches*: seq[Patch]
+    patches*: HashSet[Patch]
 
   ExecutorPayload* = object
     patch*: Patch
@@ -32,19 +33,41 @@ type
     cacheDir*: string
     http*: Curly
 
-proc loadPatch*(loader: var PatchLoader, name: string, source: string) =
-  info "Loading patch", name = name
+proc loadPatch*(
+    loader: var PatchLoader, name: string, source: string, official: bool = false
+): Option[Patch] {.discardable.} =
+  info "Loading patch", name = name, official = official
 
   try:
-    loader.patches &= fromJson(source, Patch)
+    var patch = fromJson(source, Patch)
+    patch.metadata.official = official
+    loader.patches.incl(patch)
+
+    return some(ensureMove(patch))
   except jsony.JsonError as exc:
     error "Cannot load patch - cannot parse file! It will not be available.",
       name = name, err = exc.msg
 
+proc revertPatch*(patch: Patch, outDir: string) =
+  debug "Reverting patch", name = patch.metadata.name, author = patch.metadata.author
+
+  for path, resource in patch.outputs:
+    debug "Removing patch's outputs", path = path, resource = resource
+
+    let fullPath = outDir / path
+
+    if not fileExists(fullPath):
+      warn "Output doesn't exist, maybe the user tried to remove it themselves? Ignoring it.",
+        path = outDir / path
+      continue
+
+    removeFile(fullPath)
+
 proc executePatch(payload: ExecutorPayload) =
   let patch = payload.patch
 
-  debug "Performing first-run of patch", name = patch.metadata.name
+  debug "Performing first-run of patch",
+    name = patch.metadata.name, author = patch.metadata.author
 
   let workingDir = payload.workDir / payload.patchId
 
