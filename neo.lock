@@ -1,0 +1,101 @@
+{
+  "version": 0,
+  "packages": {
+    "serialization": {
+      "version": "0.4.9",
+      "commit": "c80ddfb1094560c5270dda2932289c5161ea9298",
+      "url": "https://github.com/status-im/nim-serialization",
+      "checksum": "daaa5390fbf4e338faf7dade9c3630cc77ec788a4ed2216e101300873600b699"
+    },
+    "zippy": {
+      "version": "0.10.6",
+      "commit": "123cd593f513d584526f119e7ccb65a7baefa8fa",
+      "url": "https://github.com/guzba/zippy",
+      "checksum": "9bdc13932fc5bd139c3152665ab995c0c822ba52e26f2f10fcf0afd9d9b7ce9f"
+    },
+    "json_serialization": {
+      "version": "0.4.2",
+      "commit": "c343b0e243d9e17e2c40f3a8a24340f7c4a71d44",
+      "url": "https://github.com/status-im/nim-json-serialization",
+      "checksum": "96ca5b9e7640b7c0c46c96cea162f851ff2bfc27f58c18a45371d0b77b3be44c"
+    },
+    "jsony": {
+      "version": "1.1.5",
+      "commit": "ea811bec7fa50f5abd3088ba94cda74285e93f18",
+      "url": "https://github.com/treeform/jsony",
+      "checksum": "2968c482264a12a8891afab29d3a8326982a067a1a6a4b320ea998be35fefb88"
+    },
+    "url": {
+      "version": "0.0.0",
+      "commit": "f1613da96083efa15c08d3391054805bbd753816",
+      "url": "https://github.com/xTrayambak/url",
+      "checksum": "0971cd9d72e34a96c6d896c068d5886fe26f746e4214b55ac4222f9c7096ba63"
+    },
+    "faststreams": {
+      "version": "0.5.0",
+      "commit": "ce27581a3e881f782f482cb66dc5b07a02bd615e",
+      "url": "https://github.com/status-im/nim-faststreams",
+      "checksum": "7e93e1ee0ab3a0e745eee842220fd3ff19014bb1f79e92ef16d32e94d82a76c7"
+    },
+    "shakar": {
+      "version": "0.1.3",
+      "commit": "48333bf20e39519929cbcfaa3b3af60858805f35",
+      "url": "https://github.com/ferus-web/shakar",
+      "checksum": "1df8638ccb9014f8afa02c73a9052fddf86a533aa4f6b5c1efc3b6be09296e37"
+    },
+    "results": {
+      "version": "0.5.1",
+      "commit": "df8113dda4c2d74d460a8fa98252b0b771bf1f27",
+      "url": "https://github.com/arnetheduck/nim-results",
+      "checksum": "2a92b07a1749ddfaabb8ccc19619887a24d17cdd2ff1532fbf052390082b5b79"
+    },
+    "stew": {
+      "version": "0.2.0",
+      "commit": "79e4fa5a9d3374db17ed63622714d3e1094c7f34",
+      "url": "https://github.com/status-im/nim-stew",
+      "checksum": "973281ea336d10807ee453a48009498b26eb4d7d389054bda390bf390007e458"
+    },
+    "owlkettle": {
+      "version": "3.0.0",
+      "commit": "861092dc931e754650a735af590fbc34becc3942",
+      "url": "https://github.com/can-lehmann/owlkettle",
+      "checksum": "380437ca473526c0f7dbe4246d1b15cc5083b53b3c74b0558e9856ae72cd7358"
+    },
+    "curly": {
+      "version": "1.1.1",
+      "commit": "a0f42baacbc48f4e5924b18854c0df9dcc251466",
+      "url": "https://github.com/guzba/curly",
+      "checksum": "ad5bb9e4fbaa268a4af8c4afcb202b30aeea2bc66cb881d18fcf67708501065e"
+    },
+    "chronicles": {
+      "version": "0.12.2",
+      "commit": "d48c22c34f16b5cc4a95ba7202671e806b25f13b",
+      "url": "https://github.com/status-im/nim-chronicles",
+      "checksum": "493a0ba2324a06aca70b3c54a5da3d6115c2f74365df7fa395690f4b9907469f"
+    },
+    "libcurl": {
+      "version": "1.0.0",
+      "commit": "23f3d90e60d7a233b5eb27fb13e57fd198c73697",
+      "url": "https://github.com/Araq/libcurl",
+      "checksum": "bcd085f915f48cd6a5a68357454819fdc8400323fd6e655ff09c8ea097dc4bda"
+    },
+    "unittest2": {
+      "version": "0.2.4",
+      "commit": "8b51e99b4a57fcfb31689230e75595f024543024",
+      "url": "https://github.com/status-im/nim-unittest2",
+      "checksum": "596d318a6ba8d89878ff8be02c2c706c1d8fa5dd3fa4ed99440c793c4776d7ad"
+    },
+    "webby": {
+      "version": "0.1.7",
+      "commit": "5820b276bfa31d01b5895d59a4b292b47f6c7277",
+      "url": "https://github.com/treeform/webby/",
+      "checksum": "d3f9ea67d9562d6495d3be6052373e3422d70d0cdd3dd3c429655d1aac327897"
+    },
+    "testutils": {
+      "version": "0.8.0",
+      "commit": "e4d37dc1652d5c63afb89907efb5a5e812261797",
+      "url": "https://github.com/status-im/nim-testutils",
+      "checksum": "c422cb342fcffde246777cacebd68caadd39dbea9c2140d8821ff8d2bb90cc60"
+    }
+  }
+}
